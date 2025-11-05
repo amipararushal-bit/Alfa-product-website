@@ -34,7 +34,7 @@ input{width:100%; padding:12px 14px; margin:8px 0; border-radius:10px; border:1p
 
     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px">
       <label class="remember"><input type="checkbox" id="remember" /> Remember me</label>
-      <a href="sign-up.html" style="color:var(--primary); text-decoration:none; font-weight:600">Sign Up</a>
+      <a href="sign-up2.html" style="color:var(--primary); text-decoration:none; font-weight:600">Sign Up</a>
     </div>
 
     <div id="err" class="error" style="display:none"></div>
@@ -82,7 +82,7 @@ function login(){
       if(remember){ localStorage.setItem('lastUser', username); } else { localStorage.removeItem('lastUser'); }
       localStorage.setItem('currentUser', username);
       alert("Login Successful! Redirecting...");
-      window.location.href = "marketplace3.html";
+      window.location.href = "index.html";
     } else {
       err.style.display='block';
       err.textContent = "Username કે Password ખોટો છે.";
