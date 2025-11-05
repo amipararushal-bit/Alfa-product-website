@@ -1,0 +1,64 @@
+body {
+  font-family: "Noto Sans Gujarati", sans-serif;
+  margin: 0;
+  background-color: #f5f3ef;
+  color: #333;
+  text-align: center;
+}
+
+/* Header */
+header {
+  background-color: #d6b88a;
+  padding: 30px 10px;
+  border-bottom: 4px solid #a98560;
+}
+.logo {
+  width: 120px;
+  height: auto;
+}
+.tagline {
+  font-size: 18px;
+  color: #3a2e20;
+  margin-top: 5px;
+}
+
+/* Sections */
+section {
+  padding: 40px 20px;
+}
+h2 {
+  color: #a57239;
+  margin-bottom: 10px;
+}
+
+/* Gallery */
+.gallery-box {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.gallery-box img {
+  width: 250px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease;
+}
+.gallery-box img:hover {
+  transform: scale(1.05);
+}
+
+/* Contact */
+.contact a {
+  color: #a57239;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Footer */
+footer {
+  background-color: #d6b88a;
+  padding: 15px;
+  font-size: 14px;
+  color: #3a2e20;
+}

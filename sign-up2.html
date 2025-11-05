@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Sign Up - ALFA ART</title>
+<style>
+:root{
+  --primary:#0d6efd;
+  --muted:#6c757d;
+  --card:#ffffff;
+  --bg:#f3f6fb;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+body{
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, #eef5ff 0%, var(--bg) 100%);
+  margin:0; padding:20px; display:flex; align-items:center; justify-content:center; min-height:100vh;
+}
+.container{
+  width:100%; max-width:420px; background:var(--card); border-radius:var(--radius); box-shadow:0 6px 20px rgba(13,38,76,0.08); padding:24px;
+}
+h1{margin:0 0 8px; font-size:22px; color:#0b3a66}
+.sub{color:var(--muted); margin-bottom:18px}
+.input-row{display:flex; gap:8px; align-items:center}
+input[type="text"], input[type="password"], input[type="email"]{
+  width:100%; padding:12px 14px; border:1px solid #e6eef8; border-radius:10px; outline:none; font-size:15px;
+}
+.small{font-size:13px; color:var(--muted); margin-top:6px}
+.btn{
+  width:100%; padding:12px; border-radius:10px; border:none; background:var(--primary); color:white; font-weight:600; margin-top:12px;
+}
+.alt{display:flex; justify-content:space-between; align-items:center; margin-top:14px}
+.link{color:var(--primary); text-decoration:none; font-weight:600}
+.checkbox{display:flex; gap:8px; align-items:center; color:var(--muted); font-size:14px}
+.info{font-size:13px; color:#9aa7bd; margin-top:12px}
+.note{background:#fff7e6; padding:10px; border-radius:8px; margin-top:12px; font-size:13px; color:#7a5a00}
+.toggle-btn{background:none;border:none;color:var(--primary);cursor:pointer;font-weight:600}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>ALFA ART માં સ્વાગત</h1>
+    <div class="sub">અક્ટિવ અકાઉન્ટ બનાવો અને marketplace પર વેચવું/ખરીદવું શરૂ કરો</div>
+
+    <label>અપનો નામ</label>
+    <input type="text" id="newUsername" placeholder="Username (અદ્વૈત)" />
+
+    <label style="margin-top:10px">ઈમેલ (વૈકલ્પિક)</label>
+    <input type="email" id="email" placeholder="example@mail.com" />
+
+    <label style="margin-top:10px">પાસવર્ડ</label>
+    <div class="input-row" style="margin-top:6px">
+      <input type="password" id="newPassword" placeholder="તમારો પાસવર્ડ" />
+      <button class="toggle-btn" id="toggleSign">Show</button>
+    </div>
+
+    <div style="margin-top:10px" class="checkbox">
+      <input type="checkbox" id="accept" /> <label for="accept">મને ટર્મ્સ અને કન્ડિશન મંજૂર છે</label>
+    </div>
+
+    <button class="btn" onclick="signUp()">Sign Up</button>
+
+    <div class="alt">
+      <div class="small">Already have account?</div>
+      <a class="link" href="login.html">Login here</a>
+    </div>
+
+    <div class="info">નોટ: આ ડેમો સાઇટ માટે પાસવર્ડ સુરક્ષિત રીતે સર્વર પર સ્ટોર નથી; ફક્ત લોકલ ડેવલપમેન્ટ માટે.</div>
+    <div class="note">ડિઝાઇન અને ફંક્શન સુધારવા માટે જરૂર હોય તો આગળ વધો — હું marketplace ઓળખાવું છું.</div>
+  </div>
+
+<script>
+document.getElementById('toggleSign').addEventListener('click', function(){
+  const p = document.getElementById('newPassword');
+  if(p.type==='password'){ p.type='text'; this.textContent='Hide'; } else { p.type='password'; this.textContent='Show'; }
+});
+
+function signUp(){
+  const username = document.getElementById('newUsername').value.trim();
+  const password = document.getElementById('newPassword').value;
+  const email = document.getElementById('email').value.trim();
+  const accept = document.getElementById('accept').checked;
+
+  if(!username || !password){ alert("Username અને Password ભરશો."); return; }
+  if(!accept){ alert("કૃપા કરીને ટર્મ્સ સ્વીકારો."); return; }
+
+  // basic duplicate check
+  if(localStorage.getItem('user_'+username)){
+    alert("આ username પહેલેથી જ છે. બીજીક પસંદ કરો.");
+    return;
+  }
+
+  const userObj = { username, password, email, created: new Date().toISOString() };
+  localStorage.setItem('user_'+username, JSON.stringify(userObj));
+  // store current logged in
+  localStorage.setItem('currentUser', username);
+  alert("Sign Up સફળ! તમને marketplace પર લઇ જઈ રહ્યા છે.");
+  window.location.href = "marketplace3.html";
+}
+</script>
+</body>
+</html>

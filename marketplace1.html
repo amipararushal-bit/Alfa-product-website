@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketplace - ALFA ART</title>
+<style>
+:root {
+  --primary: #007BFF;
+  --primary-dark: #0056b3;
+  --bg: #f5f7fa;
+  --card-bg: #fff;
+  --text-dark: #333;
+  --text-muted: #777;
+  --radius: 12px;
+  --shadow: rgba(0,0,0,0.08);
+}
+* { box-sizing: border-box; margin:0; padding:0; font-family: Arial, sans-serif; }
+body { background: var(--bg); padding:20px; }
+
+.header {
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;
+}
+.header h1 { color: var(--text-dark); font-size:22px; }
+.logout-btn {
+  background:#ff4b5c; color:#fff; border:none; padding:8px 16px; border-radius:8px; cursor:pointer;
+}
+.logout-btn:hover { background:#d93645; }
+
+.marketplace {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap:20px;
+}
+
+.product-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px var(--shadow);
+  padding:15px;
+  text-align:center;
+  transition: transform .2s, box-shadow .2s;
+}
+.product-card:hover { transform: translateY(-5px); box-shadow:0 8px 20px var(--shadow);}
+.product-card img { width:100%; border-radius:8px; height:120px; object-fit:cover; margin-bottom:10px;}
+.product-card h3 { font-size:16px; color: var(--text-dark); margin-bottom:6px;}
+.product-card p { color: var(--text-muted); font-size:14px; margin-bottom:10px;}
+.product-card button {
+  background: var(--primary); color:#fff; border:none; padding:8px 12px; border-radius:8px; cursor:pointer; font-weight:600;
+}
+.product-card button:hover { background: var(--primary-dark); }
+
+.modal {
+  display:none; position:fixed; inset:0; background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:100;
+}
+.modal-content {
+  background: #fff; padding:20px; border-radius: var(--radius); width:90%; max-width:360px; text-align:center;
+  box-shadow:0 6px 20px var(--shadow);
+  position:relative;
+}
+.modal-content img { width:80%; max-width:250px; margin-bottom:15px; border-radius:8px;}
+.modal-content h3 { font-size:18px; margin-bottom:10px; color: var(--text-dark);}
+.modal-content p { font-size:16px; margin-bottom:12px; color: var(--text-muted);}
+.close {
+  position:absolute; top:10px; right:12px; font-size:24px; cursor:pointer; color:#888;
+}
+.close:hover { color:#000;}
+#payButton {
+  background: var(--primary); color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:600;
+}
+#payButton:hover { background: var(--primary-dark);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Welcome to ALFA ART Marketplace</h1>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<div class="marketplace">
+  <!-- 15 products -->
+  <div class="product-card"><img src="product 1.jpg" alt=""><h3>Product 1</h3><p>Price: ₹25</p><button onclick="openModal('Product 1',25,'product 1.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 2.jpg" alt=""><h3>Product 2</h3><p>Price: ₹40</p><button onclick="openModal('Product 2',40,'product 2.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 3.jpg" alt=""><h3>Product 3</h3><p>Price: ₹30</p><button onclick="openModal('Product 3',30,'product 3.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 4.jpg" alt=""><h3>Product 4</h3><p>Price: ₹25</p><button onclick="openModal('Product 4',25,'product 4.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 5.jpg" alt=""><h3>Product 5</h3><p>Price: ₹40</p><button onclick="openModal('Product 5',40,'product 5.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 6.jpg" alt=""><h3>Product 6</h3><p>Price: ₹30</p><button onclick="openModal('Product 6',30,'product 6.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 7.jpg" alt=""><h3>Product 7</h3><p>Price: ₹25</p><button onclick="openModal('Product 7',25,'product 7.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 8.jpg" alt=""><h3>Product 8</h3><p>Price: ₹40</p><button onclick="openModal('Product 8',40,'product 8.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 9.jpg" alt=""><h3>Product 9</h3><p>Price: ₹30</p><button onclick="openModal('Product 9',30,'product 9.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 10.jpg" alt=""><h3>Product 10</h3><p>Price: ₹25</p><button onclick="openModal('Product 10',25,'product 10.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 11.jpg" alt=""><h3>Product 11</h3><p>Price: ₹40</p><button onclick="openModal('Product 11',40,'product 11.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 12.jpg" alt=""><h3>Product 12</h3><p>Price: ₹30</p><button onclick="openModal('Product 12',30,'product 12.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 13.jpg" alt=""><h3>Product 13</h3><p>Price: ₹25</p><button onclick="openModal('Product 13',25,'product 13.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 14.jpg" alt=""><h3>Product 14</h3><p>Price: ₹40</p><button onclick="openModal('Product 14',40,'product 14.jpg')">View Details</button></div>
+  <div class="product-card"><img src="product 15.jpg" alt=""><h3>Product 15</h3><p>Price: ₹30</p><button onclick="openModal('Product 15',30,'product 15.jpg')">View Details</button></div>
+</div>
+
+<!-- Modal -->
+<div id="productModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImage" src="">
+    <h3 id="modalName"></h3>
+    <p id="modalPrice"></p>
+    <button id="payButton">Buy Now</button>
+  </div>
+</div>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+let currentProduct=null,currentPrice=0;
+function openModal(name,price,img){
+  currentProduct=name; currentPrice=price;
+  document.getElementById('modalName').innerText=name;
+  document.getElementById('modalPrice').innerText='Price: ₹'+price;
+  document.getElementById('modalImage').src=img;
+  document.getElementById('productModal').style.display='flex';
+}
+function closeModal(){ document.getElementById('productModal').style.display='none'; }
+window.onclick=function(e){ if(e.target==document.getElementById('productModal')) closeModal(); }
+
+document.getElementById('payButton').addEventListener('click',()=>{
+  const options = {
+    "key": "rzp_test_RbZBLvi84I1oqa",
+    "amount": currentPrice * 100,
+    "currency": "INR",
+    "name": "ALFA ART",
+    "description": currentProduct,
+    "image": "logo.png",
+    "handler": function(res){
+      alert("Payment successful! ID: "+res.razorpay_payment_id);
+      closeModal();
+    },
+    "theme":{"color":"#007BFF"}
+  };
+  new Razorpay(options).open();
+});
+
+function logout(){
+  localStorage.removeItem('loggedIn');
+  alert('Logged out!');
+  window.location.href='login.html';
+}
+</script>
+
+</body>
+</html>

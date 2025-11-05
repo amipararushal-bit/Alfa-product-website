@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Login - ALFA ART</title>
+<style>
+:root{--primary:#0d6efd; --muted:#6c757d; --bg:#f4f8ff}
+*{box-sizing:border-box}
+body{font-family:Arial, sans-serif; background:var(--bg); margin:0; padding:20px; display:flex; align-items:center; justify-content:center; min-height:100vh}
+.box{background:white; padding:26px; border-radius:14px; width:100%; max-width:420px; box-shadow:0 8px 30px rgba(11,38,76,0.07)}
+h2{margin:0 0 6px}
+.sub{color:var(--muted); margin-bottom:14px}
+input{width:100%; padding:12px 14px; margin:8px 0; border-radius:10px; border:1px solid #e6eef8; outline:none}
+.row{display:flex; gap:8px; align-items:center}
+.toggle-btn{background:none;border:none;color:var(--primary); cursor:pointer; font-weight:600}
+.btn{width:100%; background:var(--primary); color:#fff; padding:12px; border-radius:10px; border:none; font-weight:600; margin-top:8px}
+.google-btn{width:100%; background:#db4437; color:#fff; padding:10px; border-radius:10px; border:none; margin-top:8px; font-weight:600}
+.remember{display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px}
+.error{color:#c00; font-size:14px; margin-top:6px}
+.footer{margin-top:12px; font-size:13px; color:var(--muted); display:flex; justify-content:space-between}
+</style>
+</head>
+<body>
+  <div class="box">
+    <h2>Login</h2>
+    <div class="sub">તમારા ALFA ART એકાઉન્ટ માં પ્રવેશ કરો</div>
+
+    <input type="text" id="username" placeholder="Username" />
+    <div style="display:flex; gap:8px; align-items:center;">
+      <input type="password" id="password" placeholder="Password" style="flex:1" />
+      <button class="toggle-btn" onclick="togglePassword('password')" id="tog">Show</button>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px">
+      <label class="remember"><input type="checkbox" id="remember" /> Remember me</label>
+      <a href="sign-up.html" style="color:var(--primary); text-decoration:none; font-weight:600">Sign Up</a>
+    </div>
+
+    <div id="err" class="error" style="display:none"></div>
+
+    <button class="btn" onclick="login()">Login</button>
+    <button class="google-btn" onclick="googleLogin()">Login with Google</button>
+
+    
+<div class="footer">
+  <a href="mailto:amipararushal@gmail.com" style="text-decoration:none;">Need help?</a>
+  <div style="color:var(--muted)"></div>
+</div>
+
+
+<script>
+function togglePassword(id){
+  const el = document.getElementById(id);
+  const btn = document.getElementById('tog');
+  if(el.type==='password'){ el.type='text'; btn.textContent='Hide'; } else { el.type='password'; btn.textContent='Show'; }
+}
+
+function googleLogin(){
+  alert("Google Login ડેમો માટે અ્‍સ્થાયી રીતે બંધ છે. પ્રોડક્ટિવ માટે OAuth જોઈએ.");
+}
+
+function login(){
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const remember = document.getElementById('remember').checked;
+  const err = document.getElementById('err');
+
+  if(!username || !password){ err.style.display='block'; err.textContent = "Username અને Password ભરો."; return; }
+
+  const stored = localStorage.getItem('user_'+username);
+  if(!stored){
+    err.style.display='block';
+    err.textContent = "Username કે Password ખોટો છે.";
+    return;
+  }
+
+  try {
+    const obj = JSON.parse(stored);
+    if(obj.password === password){
+      err.style.display='none';
+      if(remember){ localStorage.setItem('lastUser', username); } else { localStorage.removeItem('lastUser'); }
+      localStorage.setItem('currentUser', username);
+      alert("Login Successful! Redirecting...");
+      window.location.href = "marketplace3.html";
+    } else {
+      err.style.display='block';
+      err.textContent = "Username કે Password ખોટો છે.";
+    }
+  } catch(e){
+    err.style.display='block';
+    err.textContent = "Data error - contact admin.";
+  }
+}
+
+// Auto-fill last user if present
+window.addEventListener('load', ()=>{
+  const last = localStorage.getItem('lastUser');
+  if(last) document.getElementById('username').value = last;
+});
+</script>
+</body>
+</html>
